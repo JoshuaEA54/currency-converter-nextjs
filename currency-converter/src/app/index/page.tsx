@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Barchart } from "@/components/Barchart";
 
 export default function CurrencyConverter() {
   const [amount, setAmount] = useState("");
@@ -23,10 +24,13 @@ export default function CurrencyConverter() {
       const response = await fetch("/api/convert");
       const data = await response.json();
 
+      console.log("API response:", data);
+      
+
       if (data && data.data) {
         const fromRate = data.data[fromCurrency]?.value;
         const toRate = data.data[toCurrency]?.value;
-
+        
         if (fromRate && toRate) {
           const convertedAmount = (
             (parseFloat(amount) / fromRate) *
@@ -113,6 +117,10 @@ export default function CurrencyConverter() {
       </div>
       <div className="mt-4 text-center">
         <p className="text-lg font-semibold">{result || "Result will appear here"}</p>
+      </div>
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4 text-center">Exchange Rates Chart</h2>
+        <Barchart /> {/* Agrega el componente Barchart aquí */}
       </div>
     </div>
   );
