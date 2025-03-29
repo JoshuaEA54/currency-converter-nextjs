@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { Chart, registerables} from "chart.js";
+import { Chart, registerables } from "chart.js";
+
 
 Chart.register(...registerables);
 
@@ -38,10 +39,21 @@ const useFetch = (url: string) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
+        const response = await fetch("/api/convert");
         const result = await response.json();
-        setData(result.data);
-        currencyObserver.notify(result.data); 
+
+        const EUR = result.data["EUR"]?.value;
+        const GBP = result.data["GBP"]?.value;
+
+        const resultAPI = {
+          data: {
+            EUR: { value: EUR },
+            GBP: { value: GBP },
+          },
+        };
+
+        setData(resultAPI.data);
+        currencyObserver.notify(resultAPI.data);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -76,9 +88,11 @@ const Barchart = () => {
         labels: Object.keys(data),
         datasets: [
           {
-            label: "Tasas de Cambio",
+            label: "Tipo de Cambio, en Dólares ($).",
             data: Object.values(data).map((currency) => currency.value),
-            backgroundColor: "rgba(75, 192, 192, 0.6)",
+            backgroundColor: "rgba(249, 180, 5, 1)",
+
+
           },
         ],
       });
@@ -89,7 +103,37 @@ const Barchart = () => {
 
   useFetch("/api/currency");
 
-  return <div>{ChartFactory.createChart("bar", chartData)}</div>;
+  return <div>
+    <Bar
+      data={chartData}
+      options={{
+        responsive: true,
+        plugins: {
+          tooltip: {
+            titleColor: 'white',
+            bodyColor: 'white',
+          },
+          legend: {
+            labels: {
+              color: 'white',
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: 'white',
+            },
+          },
+          y: {
+            ticks: {
+              color: 'white',
+            },
+          },
+        },
+      }}
+    />
+  </div>;;
 };
 
 export { Barchart, currencyObserver, useFetch };

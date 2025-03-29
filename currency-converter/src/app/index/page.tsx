@@ -48,7 +48,6 @@ export default function CurrencyConverter() {
     try {
       const response = await fetch("/api/convert");
       const data = await response.json();
-
       if (data && data.data) {
         const fromRate = data.data[fromCurrency]?.value;
         const toRate = data.data[toCurrency]?.value;
