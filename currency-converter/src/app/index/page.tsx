@@ -23,7 +23,6 @@ export default function CurrencyConverter() {
     try {
       const response = await fetch("/api/convert");
       const data = await response.json();
-
       console.log("API response:", data);
       
 
@@ -120,7 +119,7 @@ export default function CurrencyConverter() {
       </div>
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-4 text-center">Exchange Rates Chart</h2>
-        <Barchart /> {/* Agrega el componente Barchart aquí */}
+        <Barchart />
       </div>
     </div>
   );
