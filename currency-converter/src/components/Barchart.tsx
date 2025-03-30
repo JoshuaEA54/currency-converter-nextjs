@@ -42,18 +42,8 @@ const useFetch = (url: string) => {
         const response = await fetch("/api/convert");
         const result = await response.json();
 
-        const EUR = result.data["EUR"]?.value;
-        const GBP = result.data["GBP"]?.value;
-
-        const resultAPI = {
-          data: {
-            EUR: { value: EUR },
-            GBP: { value: GBP },
-          },
-        };
-
-        setData(resultAPI.data);
-        currencyObserver.notify(resultAPI.data);
+        setData(result.data);
+        currencyObserver.notify(result.data);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -70,7 +60,7 @@ const useFetch = (url: string) => {
 };
 
 
-const Barchart = () => {
+const Barchart = ({ currency }: { currency: string }) => {
   const [chartData, setChartData] = useState({
     labels: [] as string[],
     datasets: [
@@ -82,58 +72,67 @@ const Barchart = () => {
     ],
   });
 
+  console.log("Currency received in Barchart: ", currency); // Verificar si el currency está siendo pasado correctamente
+
   useEffect(() => {
-    const updateChart = (data: CurrencyData) => {
-      setChartData({
-        labels: Object.keys(data),
-        datasets: [
-          {
-            label: "Tipo de Cambio, en Dólares ($).",
-            data: Object.values(data).map((currency) => currency.value),
-            backgroundColor: "rgba(249, 180, 5, 1)",
+    const updateChart = (bar: CurrencyData) => {
+      if (bar[currency]) {
+        console.log("Data for selected currency:", bar[currency]); // Verificar que los datos están disponibles
 
-
-          },
-        ],
-      });
+        setChartData({
+          labels: [currency],
+          datasets: [
+            {
+              label: `Tipo de Cambio (${currency})`,
+              data: [bar[currency]?.value || 0], // Asegurarse de que siempre haya un número
+              backgroundColor: "rgba(249, 180, 5, 1)",
+            },
+          ],
+        });
+      }
     };
 
     currencyObserver.subscribe(updateChart);
-  }, []);
 
-  useFetch("/api/currency");
 
-  return <div>
-    <Bar
-      data={chartData}
-      options={{
-        responsive: true,
-        plugins: {
-          tooltip: {
-            titleColor: 'white',
-            bodyColor: 'white',
-          },
-          legend: {
-            labels: {
-              color: 'white',
+  }, [currency]); // Ejecutar el useEffect cuando el valor de currency cambie
+
+  useFetch("/api/currency"); // Obtener los datos de la API
+
+  return (
+    <div>
+      <Bar
+        data={chartData}
+        options={{
+          responsive: true,
+          plugins: {
+            tooltip: {
+              titleColor: "white",
+              bodyColor: "white",
+            },
+            legend: {
+              labels: {
+                color: "white",
+              },
             },
           },
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: 'white',
+          scales: {
+            x: {
+              ticks: {
+                color: "white",
+              },
+            },
+            y: {
+              ticks: {
+                color: "white",
+              },
             },
           },
-          y: {
-            ticks: {
-              color: 'white',
-            },
-          },
-        },
-      }}
-    />
-  </div>;;
+        }}
+      />
+    </div>
+  );
 };
+
 
 export { Barchart, currencyObserver, useFetch };
