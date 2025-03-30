@@ -42,18 +42,8 @@ const useFetch = (url: string) => {
         const response = await fetch("/api/convert");
         const result = await response.json();
 
-        const EUR = result.data["EUR"]?.value;
-        const GBP = result.data["GBP"]?.value;
-
-        const resultAPI = {
-          data: {
-            EUR: { value: EUR },
-            GBP: { value: GBP },
-          },
-        };
-
-        setData(resultAPI.data);
-        currencyObserver.notify(resultAPI.data);
+        setData(result.data);
+        currencyObserver.notify(result.data);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -70,7 +60,7 @@ const useFetch = (url: string) => {
 };
 
 
-const Barchart = () => {
+const Barchart = ({ currency }: { currency: string }) => {
   const [chartData, setChartData] = useState({
     labels: [] as string[],
     datasets: [
@@ -84,18 +74,20 @@ const Barchart = () => {
 
   useEffect(() => {
     const updateChart = (data: CurrencyData) => {
-      setChartData({
-        labels: Object.keys(data),
-        datasets: [
-          {
-            label: "Tipo de Cambio, en Dólares ($).",
-            data: Object.values(data).map((currency) => currency.value),
-            backgroundColor: "rgba(249, 180, 5, 1)",
+      if (data[currency]) {
+        setChartData({
+          labels: [currency],
+          datasets: [
+            {
+              label: "Tipo de Cambio (${currency})",
+              data: [data[currency].value],
+              backgroundColor: "rgba(249, 180, 5, 1)",
 
 
-          },
-        ],
-      });
+            },
+          ],
+        });
+      }
     };
 
     currencyObserver.subscribe(updateChart);

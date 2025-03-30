@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Barchart } from "@/components/Barchart";
+import { currencyObserver } from "@/components/Barchart";
 
 export default function CurrencyConverter() {
   const [amount, setAmount] = useState("");
@@ -119,7 +120,7 @@ export default function CurrencyConverter() {
       </div>
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-4 text-center">Exchange Rates Chart</h2>
-        <Barchart />
+        <Barchart currency={fromCurrency} />
       </div>
     </div>
   );
