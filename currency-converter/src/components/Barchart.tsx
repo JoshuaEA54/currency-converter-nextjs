@@ -72,36 +72,34 @@ const Barchart = ({ currency }: { currency: string }) => {
     ],
   });
 
-  console.log("Currency received in Barchart: ", currency); // Verificar si el currency está siendo pasado correctamente
+  console.log("Currency received in Barchart: ", currency);
 
-  useEffect(() => {
+   useEffect(() => {
     const updateChart = (bar: CurrencyData) => {
       if (bar[currency]) {
-        console.log("Data for selected currency:", bar[currency]); // Verificar que los datos están disponibles
-
+        console.log("Data for selected currency:", bar[currency]);
+  
         setChartData({
           labels: [currency],
           datasets: [
             {
-              label: `Tipo de Cambio (${currency})`,
-              data: [bar[currency]?.value || 0], // Asegurarse de que siempre haya un número
+              label: `Tipo de Cambio (${currency}), 1 dolar = ${bar[currency]?.value}`,
+              data: [bar[currency]?.value || 0],
               backgroundColor: "rgba(249, 180, 5, 1)",
             },
           ],
         });
       }
     };
-
+  
     currencyObserver.subscribe(updateChart);
+  }, [currency]);
 
-
-  }, [currency]); // Ejecutar el useEffect cuando el valor de currency cambie
-
-  useFetch("/api/currency"); // Obtener los datos de la API
+  useFetch("/api/currency");
 
   return (
     <div>
-      <Bar
+            <Bar
         data={chartData}
         options={{
           responsive: true,
@@ -121,10 +119,16 @@ const Barchart = ({ currency }: { currency: string }) => {
               ticks: {
                 color: "white",
               },
+              grid: {
+                color: "rgba(255, 255, 255, 0.2)",
+              },
             },
             y: {
               ticks: {
                 color: "white",
+              },
+              grid: {
+                color: "rgba(255, 255, 255, 0.2)",
               },
             },
           },

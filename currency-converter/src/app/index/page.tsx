@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Barchart } from "@/components/Barchart";
+import { Barchart, currencyObserver } from "@/components/Barchart";
 import {
   AmountInput,
   CurrencySelect,
@@ -16,6 +16,7 @@ export default function CurrencyConverter() {
   const [toCurrency, setToCurrency] = useState("");
   const [result, setResult] = useState<string | null>(null);
   const [currencies, setCurrencies] = useState<string[]>([]);
+
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -58,6 +59,8 @@ export default function CurrencyConverter() {
             toRate
           ).toFixed(2);
           setResult(`${convertedAmount} ${toCurrency}`);
+
+          currencyObserver.notify(data.data);
         } else {
           setResult("Conversion rates not available");
         }
@@ -70,29 +73,41 @@ export default function CurrencyConverter() {
     }
   };
 
-  return (
-    <div className="max-w-md mx-auto bg-blue-900 text-white p-6 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center">Currency Converter</h1>
-      <AmountInput amount={amount} setAmount={setAmount} />
-      <CurrencySelect
-        label="From"
-        selectedCurrency={fromCurrency}
-        setCurrency={setFromCurrency}
-        currencies={currencies}
-      />
-      <SwapButton handleSwap={handleSwap} />
-      <CurrencySelect
-        label="To"
-        selectedCurrency={toCurrency}
-        setCurrency={setToCurrency}
-        currencies={currencies}
-      />
-      <ConvertButton handleConvert={handleConvert} />
-      <ResultDisplay result={result} />
-      <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4 text-center">Exchange Rates Chart</h2>
-        <Barchart currency={fromCurrency} />
-        <Barchart currency={toCurrency} />
+    return (
+    <div className="max-w-5xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-4 text-center text-white">Currency Converter</h1>
+      <div className="flex justify-between items-start gap-4">
+        {/* Gráfico izquierdo */}
+        <div className="flex-1">
+          <h2 className="text-xl font-bold mb-4 text-center text-white">Exchange Rates Chart</h2>
+          <Barchart currency={fromCurrency} />
+        </div>
+  
+        {/* Formulario en el centro */}
+        <div className="flex-shrink-0 bg-blue-900 text-white p-6 rounded-lg shadow-md w-96">
+          <AmountInput amount={amount} setAmount={setAmount} />
+          <CurrencySelect
+            label="From"
+            selectedCurrency={fromCurrency}
+            setCurrency={setFromCurrency}
+            currencies={currencies}
+          />
+          <SwapButton handleSwap={handleSwap} />
+          <CurrencySelect
+            label="To"
+            selectedCurrency={toCurrency}
+            setCurrency={setToCurrency}
+            currencies={currencies}
+          />
+          <ConvertButton handleConvert={handleConvert} />
+          <ResultDisplay result={result} />
+        </div>
+  
+        {/* Gráfico derecho */}
+        <div className="flex-1">
+          <h2 className="text-xl font-bold mb-4 text-center text-white">Exchange Rates Chart</h2>
+          <Barchart currency={toCurrency} />
+        </div>
       </div>
     </div>
   );
