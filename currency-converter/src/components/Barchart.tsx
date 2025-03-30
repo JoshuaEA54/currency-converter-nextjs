@@ -72,18 +72,20 @@ const Barchart = ({ currency }: { currency: string }) => {
     ],
   });
 
+  console.log("Currency received in Barchart: ", currency); // Verificar si el currency está siendo pasado correctamente
+
   useEffect(() => {
-    const updateChart = (data: CurrencyData) => {
-      if (data[currency]) {
+    const updateChart = (bar: CurrencyData) => {
+      if (bar[currency]) {
+        console.log("Data for selected currency:", bar[currency]); // Verificar que los datos están disponibles
+
         setChartData({
           labels: [currency],
           datasets: [
             {
-              label: "Tipo de Cambio (${currency})",
-              data: [data[currency].value],
+              label: `Tipo de Cambio (${currency})`,
+              data: [bar[currency]?.value || 0], // Asegurarse de que siempre haya un número
               backgroundColor: "rgba(249, 180, 5, 1)",
-
-
             },
           ],
         });
@@ -91,41 +93,46 @@ const Barchart = ({ currency }: { currency: string }) => {
     };
 
     currencyObserver.subscribe(updateChart);
-  }, []);
 
-  useFetch("/api/currency");
 
-  return <div>
-    <Bar
-      data={chartData}
-      options={{
-        responsive: true,
-        plugins: {
-          tooltip: {
-            titleColor: 'white',
-            bodyColor: 'white',
-          },
-          legend: {
-            labels: {
-              color: 'white',
+  }, [currency]); // Ejecutar el useEffect cuando el valor de currency cambie
+
+  useFetch("/api/currency"); // Obtener los datos de la API
+
+  return (
+    <div>
+      <Bar
+        data={chartData}
+        options={{
+          responsive: true,
+          plugins: {
+            tooltip: {
+              titleColor: "white",
+              bodyColor: "white",
+            },
+            legend: {
+              labels: {
+                color: "white",
+              },
             },
           },
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: 'white',
+          scales: {
+            x: {
+              ticks: {
+                color: "white",
+              },
+            },
+            y: {
+              ticks: {
+                color: "white",
+              },
             },
           },
-          y: {
-            ticks: {
-              color: 'white',
-            },
-          },
-        },
-      }}
-    />
-  </div>;;
+        }}
+      />
+    </div>
+  );
 };
+
 
 export { Barchart, currencyObserver, useFetch };

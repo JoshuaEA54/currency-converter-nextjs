@@ -121,6 +121,7 @@ export default function CurrencyConverter() {
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-4 text-center">Exchange Rates Chart</h2>
         <Barchart currency={fromCurrency} />
+        <Barchart currency={toCurrency} />
       </div>
     </div>
   );
