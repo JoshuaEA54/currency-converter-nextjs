@@ -17,6 +17,7 @@ export default function CurrencyConverter() {
   const [result, setResult] = useState<string | null>(null);
   const [currencies, setCurrencies] = useState<string[]>([]);
 
+
   useEffect(() => {
     const loadStateFromLocalStorage = () => {
       const savedState = localStorage.getItem("currencyConverterState");
@@ -114,13 +115,24 @@ export default function CurrencyConverter() {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-center text-white">Currency Converter</h1>
-      <div className="flex justify-between items-start gap-4">
-        <div className="flex-1">
-          <h2 className="text-xl font-bold mb-4 text-center text-white">Exchange Rates Chart</h2>
-          <Barchart currency={fromCurrency} />
+      <h1 className="text-2xl font-bold mb-4 text-center text-white">
+        Currency Converter
+      </h1>
+
+      {/* Contenedor flexible */}
+      <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-4">
+
+        <div className="flex-1 w-full flex justify-center md:justify-start">
+          <div className="w-full max-w-sm">
+            <h2 className="text-xl font-bold mb-4 text-center text-white">
+              Exchange Rates Chart
+            </h2>
+            <Barchart currency={fromCurrency} />
+          </div>
         </div>
-        <div className="flex-shrink-0 bg-blue-900 text-white p-6 rounded-lg shadow-md w-96">
+
+        {/* Conversor de Moneda */}
+        <div className="bg-blue-900 text-white p-6 rounded-lg shadow-md w-full md:w-96">
           <AmountInput amount={amount} setAmount={setAmount} />
           <CurrencySelect
             label="From"
@@ -138,11 +150,19 @@ export default function CurrencyConverter() {
           <ConvertButton handleConvert={handleConvert} />
           <ResultDisplay result={result} />
         </div>
-        <div className="flex-1">
-          <h2 className="text-xl font-bold mb-4 text-center text-white">Exchange Rates Chart</h2>
-          <Barchart currency={toCurrency} />
+
+        {/* Gráfico Derecho - Se centrará en móviles */}
+        <div className="flex-1 w-full flex justify-center md:justify-end">
+          <div className="w-full max-w-sm">
+            <h2 className="text-xl font-bold mb-4 text-center text-white">
+              Exchange Rates Chart
+            </h2>
+            <Barchart currency={toCurrency} />
+          </div>
         </div>
+
       </div>
     </div>
+
   );
 }

@@ -74,24 +74,23 @@ const Barchart = ({ currency }: { currency: string }) => {
 
   console.log("Currency received in Barchart: ", currency);
 
-   useEffect(() => {
+  useEffect(() => {
     const updateChart = (bar: CurrencyData) => {
       if (bar[currency]) {
         console.log("Data for selected currency:", bar[currency]);
-  
+
         setChartData({
           labels: [currency],
           datasets: [
             {
-              label: `Tipo de Cambio (${currency}), 1 dolar = ${bar[currency]?.value}`,
-              data: [bar[currency]?.value || 0],
+              label: `Tipo de Cambio (${currency}), 1 dolar = ${(bar[currency]?.value || 0).toFixed(2)}`,              data: [bar[currency]?.value || 0],
               backgroundColor: "rgba(249, 180, 5, 1)",
             },
           ],
         });
       }
     };
-  
+
     currencyObserver.subscribe(updateChart);
   }, [currency]);
 
@@ -99,7 +98,7 @@ const Barchart = ({ currency }: { currency: string }) => {
 
   return (
     <div>
-            <Bar
+      <Bar
         data={chartData}
         options={{
           responsive: true,
