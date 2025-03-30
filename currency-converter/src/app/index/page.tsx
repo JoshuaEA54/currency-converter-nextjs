@@ -17,6 +17,34 @@ export default function CurrencyConverter() {
   const [result, setResult] = useState<string | null>(null);
   const [currencies, setCurrencies] = useState<string[]>([]);
 
+  useEffect(() => {
+    const loadStateFromLocalStorage = () => {
+      const savedState = localStorage.getItem("currencyConverterState");
+      if (savedState) {
+        const { amount, fromCurrency, toCurrency, result } = JSON.parse(savedState);
+        setAmount(amount || "");
+        setFromCurrency(fromCurrency || "");
+        setToCurrency(toCurrency || "");
+        setResult(result || null);
+      }
+    };
+
+    loadStateFromLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    const saveStateToLocalStorage = () => {
+      const state = {
+        amount,
+        fromCurrency,
+        toCurrency,
+        result,
+      };
+      localStorage.setItem("currencyConverterState", JSON.stringify(state));
+    };
+
+    saveStateToLocalStorage();
+  }, [amount, fromCurrency, toCurrency, result]);
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -34,6 +62,17 @@ export default function CurrencyConverter() {
 
     fetchCurrencies();
   }, []);
+
+  useEffect(() => {
+    if (currencies.length > 0) {
+      if (!currencies.includes(fromCurrency)) {
+        setFromCurrency(currencies[0]);
+      }
+      if (!currencies.includes(toCurrency)) {
+        setToCurrency(currencies[1] || currencies[0]);
+      }
+    }
+  }, [currencies]);
 
   const handleSwap = () => {
     setFromCurrency(toCurrency);
@@ -73,17 +112,14 @@ export default function CurrencyConverter() {
     }
   };
 
-    return (
+  return (
     <div className="max-w-5xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4 text-center text-white">Currency Converter</h1>
       <div className="flex justify-between items-start gap-4">
-        {/* Gráfico izquierdo */}
         <div className="flex-1">
           <h2 className="text-xl font-bold mb-4 text-center text-white">Exchange Rates Chart</h2>
           <Barchart currency={fromCurrency} />
         </div>
-  
-        {/* Formulario en el centro */}
         <div className="flex-shrink-0 bg-blue-900 text-white p-6 rounded-lg shadow-md w-96">
           <AmountInput amount={amount} setAmount={setAmount} />
           <CurrencySelect
@@ -102,8 +138,6 @@ export default function CurrencyConverter() {
           <ConvertButton handleConvert={handleConvert} />
           <ResultDisplay result={result} />
         </div>
-  
-        {/* Gráfico derecho */}
         <div className="flex-1">
           <h2 className="text-xl font-bold mb-4 text-center text-white">Exchange Rates Chart</h2>
           <Barchart currency={toCurrency} />
