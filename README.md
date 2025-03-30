@@ -1,25 +1,31 @@
 # Currency Converter - Next.js App
 
-A real-time currency converter web application developed using **Next.js** and **TypeScript**, as part of the Programming IV course at Universidad Nacional, Brunca Campus.
+A real-time currency converter web application developed using Next.js and TypeScript, as part of the Programming IV course at Universidad Nacional, Brunca Campus.
+
+## 👥 Team Members
+- Joshua Elizondo Abarca
+- Jazmín Gamboa Chacón
+- Noemí Murillo Godinez
+- Marconi Calvo Campos
+- Brian Zeledón Esquivel
 
 ## 🚀 Features
-
-- Real-time currency conversion
+- Real-time currency conversion using external API
 - Simulated price updates every minute
-- Bar chart showing recent exchange rates
-- API Routes with protected access via Middleware
-- Local storage to remember the last conversion
-- Clean UI and UX design
+- Bar chart showing exchange rates
+- Protected API Routes with Middleware
+- Local storage to persist last conversion
+- Modular and scalable code structure
+- Clean and intuitive UI/UX
 
 ## 🧠 Technologies Used
-
 - Next.js 14
 - TypeScript
 - React Hooks: `useFetch`, `useLocalStorage`
 - API Routes & Middleware
 - Observer & Factory Design Patterns
-- Chart.js or Recharts (for bar chart)
-- ESLint, Prettier, CSpell (for code quality)
+- Chart.js via `react-chartjs-2`
+- ESLint, Prettier, CSpell (code quality)
 
 ## 🛠️ Getting Started
 
@@ -28,10 +34,9 @@ A real-time currency converter web application developed using **Next.js** and *
 - npm or yarn
 
 ### Installation
-
 ```bash
 git clone https://github.com/JoshuaEA54/currency-converter-nextjs.git
-cd currency-converter-nextjs
+cd currency-converter
 npm install
 ```
 
@@ -40,44 +45,36 @@ npm install
 npm run dev
 ```
 
-### Building for Production
-```bash
-npm run build
-npm start
-```
-
 ## 🧪 Quality Tools Setup
-- `eslint`
-- `prettier`
-- `cspell`
+We use the following tools for maintaining code quality:
+- **ESLint** - Linter for JavaScript/TypeScript
+- **Prettier** - Code formatter
+- **CSpell** - Spell checker for code
 
-Install all quality tools:
+Install tools:
 ```bash
 npm install -D eslint prettier cspell
 ```
 
-## 🧩 Folder Structure
+## 📁 Folder Structure
 ```
-/pages
-  /api
-    convert.ts       # API route for conversion
-/middleware.ts       # Auth & access control
-/components
-  BarChart.tsx       # Chart component
-/hooks
-  useFetch.ts
-  useLocalStorage.ts
+src/
+├── app/
+│   ├── api/
+│   │   └── convert/route.ts   # API Route for fetching currency data
+│   ├── middleware.ts          # Middleware for access control
+│   └── page.tsx               # Main page integration
+├── components/
+│   ├── Barchart.tsx           # Bar chart visualization
+│   └── CurrencyComponents.tsx # Conversion form and logic
+├── hooks/
+│   ├── useFetch.ts            # Custom hook for fetching API data
+│   └── useLocalStorage.tsx    # Custom hook for localStorage
 ```
 
 ## 📈 Functionality Overview
-
-- **Conversion Logic**: Fetch exchange rates from an external API using `useFetch`.
-- **Storage**: Save the latest conversion result using `useLocalStorage`.
-- **Security**: API access is protected with a custom `middleware.ts`.
-- **Auto-Update**: Every minute, the app updates the rates (or simulates if no change).
-- **Graph**: Renders a bar chart with the last N conversions.
-
-## 🌐 Deployment
-
-The app is deployed on **Vercel**: [https://currency-converter.vercel.app](https://currency-converter.vercel.app)
-
+- **Conversion Logic:** Fetches exchange rates via API using `useFetch`.
+- **Persistence:** Stores the last conversion using `useLocalStorage`.
+- **Security:** Validates access to the API using custom middleware and API key from `.env`.
+- **Auto-Update:** Refreshes or simulates exchange rates every minute.
+- **Visualization:** Displays exchange rates with a responsive bar chart.
