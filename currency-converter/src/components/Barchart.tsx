@@ -21,16 +21,6 @@ class CurrencyObserver {
 
 const currencyObserver = new CurrencyObserver();
 
-const ChartFactory = {
-  createChart: (type: "bar", data: any) => {
-    if (type === "bar") {
-      return <Bar data={data} options={{ responsive: true }} />;
-    }
-    throw new Error("Unsupported chart type");
-  },
-};
-
-
 const useFetch = (url: string) => {
   const [data, setData] = useState<CurrencyData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
