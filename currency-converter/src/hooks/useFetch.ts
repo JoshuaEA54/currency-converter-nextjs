@@ -33,7 +33,7 @@ export function useFetch<T>(url: string) {
     fetchData();
 
     return () => {
-      isMounted = false; // evita errores si el componente se desmonta
+      isMounted = false;
     };
   }, [url]);
 
