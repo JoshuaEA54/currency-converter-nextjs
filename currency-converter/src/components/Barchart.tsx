@@ -52,8 +52,8 @@ const useFetch = (url: string) => {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 60000);
-    return () => clearInterval(interval);
+    return () => {
+    };
   }, [url]);
 
   return { data, loading, error };
