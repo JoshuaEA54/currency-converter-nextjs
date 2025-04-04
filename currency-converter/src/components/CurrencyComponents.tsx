@@ -49,7 +49,7 @@ export const SwapButton = ({ handleSwap }: { handleSwap: () => void }) => (
   <div className="mb-4 text-center">
     <button
       onClick={handleSwap}
-      className="text-blue-900 bg-white px-4 py-2 rounded-md font-medium hover:bg-gray-200"
+      className="text-black bg-white px-4 py-2 rounded-md font-medium hover:bg-gray-200"
     >
       ↔ Swap
     </button>
@@ -60,7 +60,7 @@ export const ConvertButton = ({ handleConvert }: { handleConvert: () => void }) 
   <div className="mb-4">
     <button
       onClick={handleConvert}
-      className="w-full bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md font-medium"
+      className="w-full bg-emerald-700 hover:bg-emerald-800 text-black px-4 py-2 rounded-md font-bold"
     >
       Convert
     </button>

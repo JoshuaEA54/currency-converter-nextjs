@@ -57,7 +57,9 @@ const Barchart = ({ currency }: { currency: string }) => {
       {
         label: "Tasas de Cambio",
         data: [] as number[],
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        backgroundColor: " #00e676",
+        barThickness: 40,
+
       },
     ],
   });
@@ -75,7 +77,9 @@ const Barchart = ({ currency }: { currency: string }) => {
             {
               label: `Tipo de Cambio (${currency}), 1 dolar = ${(bar[currency]?.value || 0).toFixed(2)}`,
               data: [bar[currency]?.value || 0],
-              backgroundColor: "rgba(249, 180, 5, 1)",
+              backgroundColor: " #00e676",
+              barThickness: 40,
+
             },
           ],
         });
@@ -111,6 +115,8 @@ const Barchart = ({ currency }: { currency: string }) => {
               },
               grid: {
                 color: "rgba(255, 255, 255, 0.2)",
+
+
               },
             },
             y: {
@@ -119,6 +125,7 @@ const Barchart = ({ currency }: { currency: string }) => {
               },
               grid: {
                 color: "rgba(255, 255, 255, 0.2)",
+
               },
             },
           },
