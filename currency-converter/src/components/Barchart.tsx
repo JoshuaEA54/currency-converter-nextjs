@@ -55,7 +55,7 @@ const Barchart = ({ currency }: { currency: string }) => {
     labels: [] as string[],
     datasets: [
       {
-        label: "Tasas de Cambio",
+        label: "Exchange rate",
         data: [] as number[],
         backgroundColor: "rgb(46, 219, 138)",
         barThickness: 30,
