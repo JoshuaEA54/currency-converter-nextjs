@@ -60,7 +60,7 @@ export const ConvertButton = ({ handleConvert }: { handleConvert: () => void }) 
   <div className="mb-4">
     <button
       onClick={handleConvert}
-      className="w-full bg-emerald-700 hover:bg-emerald-800 text-black px-4 py-2 rounded-md font-bold"
+      className="w-full bg-blue-700 hover:bg-blue-800 text-black px-4 py-2 rounded-md font-bold"
     >
       Convert
     </button>
