@@ -130,7 +130,7 @@ export default function CurrencyConverter() {
           </div>
         </div>
 
-        <div className="bg-green-900 text-white p-6 rounded-lg shadow-md w-full md:w-96">
+        <div className="bg-emerald-900 text-white p-6 rounded-lg shadow-md w-full md:w-96">
           <AmountInput amount={amount} setAmount={setAmount} />
           <CurrencySelect
             label="From"
