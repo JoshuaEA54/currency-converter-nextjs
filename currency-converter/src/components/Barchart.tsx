@@ -73,7 +73,7 @@ const Barchart = ({ currency }: { currency: string }) => {
           labels: [currency],
           datasets: [
             {
-              label: `Tipo de Cambio (${currency}), 1 dolar = ${(bar[currency]?.value || 0).toFixed(2)}`,
+              label: `Exchange rate (${currency}), 1 dolar = ${(bar[currency]?.value || 0).toFixed(2)}`,
               data: [bar[currency]?.value || 0],
               backgroundColor: "rgb(46, 219, 138)",
             },
