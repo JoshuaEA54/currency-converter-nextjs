@@ -115,24 +115,21 @@ export default function CurrencyConverter() {
   };
 
   return (
-    <div  className="container-flui w-full mx-auto p-6" id="main_container">
-      <div className="bg-black w-full h-screen p-6 gap-10" id="container">
+    <div className="container-flui w-full mx-auto p-6" id="main_container">
+      <div className="bg-black w-full h-auto p-6 rounded-lg shadow-md" id="container">
         <h1 className="text-2xl font-bold mb-4 text-center text-white">
           Currency Converter
         </h1>
-
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-
-          <div className="flex-1 w-full flex justify-center md:justify-start">
-            <div className="w-full max-w-sm">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+          <div className="order-2 md:order-1 flex-1 w-full flex justify-center md:justify-start">
+            <div className="w-full max-w-sm bg-gray-800 p-4 rounded-lg shadow-md">
               <h2 className="text-xl font-bold mb-4 text-center text-white">
                 Exchange Rates Chart
               </h2>
               <Barchart currency={fromCurrency} />
             </div>
           </div>
-
-          <div className="bg-emerald-900 text-white p-6 rounded-lg shadow-md w-full h-full md:w-96">
+          <div className="order-1 md:order-2 bg-emerald-900 text-white p-6 rounded-lg shadow-md w-full md:w-96">
             <AmountInput amount={amount} setAmount={setAmount} />
             <CurrencySelect
               label="From"
@@ -150,20 +147,16 @@ export default function CurrencyConverter() {
             <ConvertButton handleConvert={handleConvert} />
             <ResultDisplay result={result} />
           </div>
-
-          <div className="flex-1 w-full flex justify-center md:justify-end">
-            <div className="w-full max-w-sm">
+          <div className="order-3 md:order-3 flex-1 w-full flex justify-center md:justify-end">
+            <div className="w-full max-w-sm bg-gray-800 p-4 rounded-lg shadow-md">
               <h2 className="text-xl font-bold mb-4 text-center text-white">
                 Exchange Rates Chart
               </h2>
               <Barchart currency={toCurrency} />
             </div>
-          </div>
-
+          </div> 
         </div>
       </div>
     </div>
-
-
   );
 }
