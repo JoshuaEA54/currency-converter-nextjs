@@ -1,0 +1,100 @@
+body {
+    background-image: url("../resources/stacked-waves-haikei.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: animacion 3s infinite alternate linear;
+}
+
+@keyframes animacion {
+    100% {
+        background-position: 15% 30%;
+    }
+}
+
+#main_container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: black;
+    height: 100%;
+    width: 95%;
+    border-radius: 10px;
+    padding-bottom: 20px;
+}
+
+#container {
+    padding-top: 4%;
+    padding-left: 3%;
+    padding-right: 3%;
+    color: white;
+}
+
+.lirics {
+    padding-top: 15px;
+    font-size: 1px;
+}
+
+#Internal{
+    margin-left: 30px;
+}
+
+#Name {
+    font-size: 60px;
+    /* margin-bottom: 21px; */
+}
+
+#Job {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.skills {
+    margin-top: 30%;
+}
+
+.progress,
+.progress-stacked {
+    --bs-progress-height: 2rem;
+    --bs-progress-bar-bg: blue;
+    --bs-progress-font-size: 1rem;
+
+}
+
+#Html {
+    --bs-progress-bar-bg: #b923bc;
+    --bs-progress-bar-color: BLACK;
+    background-color: WHITE;
+
+}
+
+#CSS {
+    --bs-progress-bar-bg: #6f1e93;
+    --bs-progress-bar-color: BLACK;
+    background-color: WHITE;
+
+}
+
+#JS {
+    --bs-progress-bar-bg:#0b0a4d;
+    --bs-progress-bar-color: BLACK;
+    background-color: WHITE;
+
+}
+
+.contact{
+    margin-top: 30px;
+    padding: 5px;
+}
+
+#btnSend{
+    background-color: #6f1e93;
+    border-color: #6f1e93;
+}
+
+.text{
+    font-size: 20px;
+}
+
+.projects{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}

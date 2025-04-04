@@ -9,6 +9,7 @@ import {
   ConvertButton,
   ResultDisplay,
 } from "@/components/CurrencyComponents";
+import "../app/portafolio.css";
 
 export default function CurrencyConverter() {
   const [amount, setAmount] = useState("");
@@ -114,54 +115,55 @@ export default function CurrencyConverter() {
   };
 
   return (
-    <div className="bg-black max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-center text-white">
-        Currency Converter
-      </h1>
+    <div  className="container-flui w-full mx-auto p-6" id="main_container">
+      <div className="bg-black w-full h-screen p-6 gap-10" id="container">
+        <h1 className="text-2xl font-bold mb-4 text-center text-white">
+          Currency Converter
+        </h1>
 
-      <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-4">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
 
-        <div className="flex-1 w-full flex justify-center md:justify-start">
-          <div className="w-full max-w-sm">
-            <h2 className="text-xl font-bold mb-4 text-center text-white">
-              Exchange Rates Chart
-            </h2>
-            <Barchart currency={fromCurrency} />
+          <div className="flex-1 w-full flex justify-center md:justify-start">
+            <div className="w-full max-w-sm">
+              <h2 className="text-xl font-bold mb-4 text-center text-white">
+                Exchange Rates Chart
+              </h2>
+              <Barchart currency={fromCurrency} />
+            </div>
           </div>
-        </div>
 
-        <div className="bg-emerald-900 text-white p-6 rounded-lg shadow-md w-full md:w-96">
-          <AmountInput amount={amount} setAmount={setAmount} />
-          <CurrencySelect
-            label="From"
-            selectedCurrency={fromCurrency}
-            setCurrency={setFromCurrency}
-            currencies={currencies}
-          />
-          <SwapButton handleSwap={handleSwap} />
-          <CurrencySelect
-            label="To"
-            selectedCurrency={toCurrency}
-            setCurrency={setToCurrency}
-            currencies={currencies}
-          />
-          <ConvertButton handleConvert={handleConvert} />
-          <ResultDisplay result={result} />
-        </div>
-
-        <div className="flex-1 w-full flex justify-center md:justify-end">
-          <div className="w-full max-w-sm">
-            <h2 className="text-xl font-bold mb-4 text-center text-white">
-              Exchange Rates Chart
-            </h2>
-            <Barchart currency={toCurrency} />
+          <div className="bg-emerald-900 text-white p-6 rounded-lg shadow-md w-full h-full md:w-96">
+            <AmountInput amount={amount} setAmount={setAmount} />
+            <CurrencySelect
+              label="From"
+              selectedCurrency={fromCurrency}
+              setCurrency={setFromCurrency}
+              currencies={currencies}
+            />
+            <SwapButton handleSwap={handleSwap} />
+            <CurrencySelect
+              label="To"
+              selectedCurrency={toCurrency}
+              setCurrency={setToCurrency}
+              currencies={currencies}
+            />
+            <ConvertButton handleConvert={handleConvert} />
+            <ResultDisplay result={result} />
           </div>
-        </div>
 
+          <div className="flex-1 w-full flex justify-center md:justify-end">
+            <div className="w-full max-w-sm">
+              <h2 className="text-xl font-bold mb-4 text-center text-white">
+                Exchange Rates Chart
+              </h2>
+              <Barchart currency={toCurrency} />
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
-    
 
   );
 }
